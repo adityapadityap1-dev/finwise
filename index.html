@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>FinWise – Smart Financial Literacy &amp; Budget Planner</title>
+<meta name="description" content="A free, private budget planner with expense tracking, savings goals, debt planning, financial lessons and government scheme information.">
+<link rel="stylesheet" href="css/style.css">
+</head><body>
+<header class="top"><div class="wrap bar">
+  <a class="logo" href="#home">💰 FinWise</a>
+  <nav aria-label="Main navigation">
+    <a href="#tools">Tools</a><a href="#money-dashboard">My money</a><a href="#schemes">Schemes</a><a href="#learn">Learn</a>
+    <button class="small-control" id="largeText" type="button" aria-pressed="false">A+ Text</button>
+    <button class="small-control" id="simpleMode" type="button" aria-pressed="false">Simple language</button>
+  </nav>
+</div></header>
+
+<main>
+<section class="hero" id="home">
+  <div class="web-threads-container" id="heroThreads" aria-hidden="true"></div>
+  <div class="wrap hero-content">
+  <span class="pill">Free · Private · No login</span>
+  <h1>Take control of your money,<br><span class="grad">one smart step at a time.</span></h1>
+  <p class="lead">Plan your budget, track spending, grow savings and learn money skills. Your personal data stays in this browser.</p>
+  <div class="btns"><a class="cta" href="#tools">Open the planner</a><a class="ghost" href="#money-dashboard">View my money</a></div>
+  <div class="stats"><div><b>6</b><span>Smart tools</span></div><div><b>13</b><span>Govt schemes</span></div><div><b>0</b><span>Sign-ups needed</span></div></div>
+</div></section>
+
+<section class="wrap feat" aria-label="FinWise features">
+  <div class="card"><i>📊</i><h3>Budget &amp; expenses</h3><p>Plan your month and see where your money goes.</p></div>
+  <div class="card"><i>🎯</i><h3>Savings goals</h3><p>Set a target and track contributions over time.</p></div>
+  <div class="card"><i>💳</i><h3>Debt planner</h3><p>Compare payoff approaches and estimated interest.</p></div>
+  <div class="card"><i>📚</i><h3>Learn &amp; compare</h3><p>Build money skills and explore government schemes.</p></div>
+</section>
+
+<section class="wrap" id="tools">
+  <h2>Smart tools</h2><p class="sub">Pick a calculator, enter your numbers and get an estimate.</p>
+  <div class="tabs" id="tabs"></div>
+  <div class="card tool"><form id="form"></form><div id="out" aria-live="polite"></div></div>
+</section>
+
+<section class="wrap" id="money-dashboard">
+  <div class="section-heading"><div><h2>Your money dashboard</h2><p class="sub">Saved on this device only. Use a private device carefully.</p></div>
+    <button class="ghost" id="exportData" type="button">Download my report (CSV)</button>
+  </div>
+  <div class="dashboard-grid">
+    <article class="card"><h3>Track an expense</h3>
+      <form id="expenseForm" class="stack-form">
+        <div><label for="expenseName">What was it?</label><input id="expenseName" name="name" maxlength="70" required placeholder="e.g. Groceries"></div>
+        <div><label for="expenseAmount">Amount (₹)</label><input id="expenseAmount" name="amount" type="number" min="0.01" step="0.01" required></div>
+        <div><label for="expenseCategory">Category</label><select id="expenseCategory" name="category"><option>Food</option><option>Housing</option><option>Transport</option><option>Bills</option><option>Health</option><option>Shopping</option><option>Education</option><option>Other</option></select></div>
+        <div><label for="expenseDate">Date</label><input id="expenseDate" name="date" type="date" required></div>
+        <button class="cta" type="submit">Add expense</button>
+      </form>
+      <div id="expenseSummary" aria-live="polite"></div><div id="expenseList"></div>
+    </article>
+    <article class="card"><h3>Monthly spending trends</h3><p class="mu">Last six months of recorded expenses.</p><div id="expenseChart" class="chart" aria-label="Monthly expense chart"></div>
+      <h3 class="spaced">Budget history</h3><div id="historyChart" class="chart" aria-label="Monthly budget history"></div>
+      <h3 class="spaced">Savings trend</h3><p class="mu">Track how much remains after each monthly budget.</p><div id="savingsTrend" class="savings-trend"></div>
+    </article>
+    <article class="card"><h3>Savings goals</h3>
+      <form id="goalForm" class="stack-form">
+        <div><label for="goalName">Goal name</label><input id="goalName" name="name" maxlength="60" required placeholder="e.g. Emergency savings"></div>
+        <div><label for="goalTarget">Target amount (₹)</label><input id="goalTarget" name="target" type="number" min="1" step="0.01" required></div>
+        <div><label for="goalSaved">Already saved (₹)</label><input id="goalSaved" name="saved" type="number" min="0" step="0.01" value="0"></div>
+        <button class="cta" type="submit">Create goal</button>
+      </form>
+      <div id="goalList" aria-live="polite"></div>
+    </article>
+    <article class="card"><h3>Debt payoff planner</h3>
+      <form id="debtForm" class="stack-form">
+        <div><label for="debtName">Debt name</label><input id="debtName" name="name" maxlength="60" required placeholder="e.g. Credit card"></div>
+        <div><label for="debtBalance">Balance (₹)</label><input id="debtBalance" name="balance" type="number" min="0.01" step="0.01" required></div>
+        <div><label for="debtRate">Interest rate (% per year)</label><input id="debtRate" name="rate" type="number" min="0" step="0.01" required></div>
+        <div><label for="debtMinimum">Monthly minimum payment (₹)</label><input id="debtMinimum" name="minimum" type="number" min="0.01" step="0.01" required></div>
+        <button class="cta" type="submit">Add debt</button>
+      </form>
+      <form id="debtPlanForm" class="stack-form compact-form">
+        <div><label for="debtExtra">Extra to pay each month (₹)</label><input id="debtExtra" name="extra" type="number" min="0" step="0.01" value="0"></div>
+        <div><label for="debtStrategy">Pay extra toward</label><select id="debtStrategy" name="strategy"><option value="avalanche">Highest interest first</option><option value="snowball">Smallest balance first</option></select></div>
+        <button class="ghost" type="submit">Estimate payoff</button>
+      </form>
+      <div id="debtList" aria-live="polite"></div><div id="debtResult" aria-live="polite"></div>
+    </article>
+    <article class="card"><h3>Emergency fund</h3><p class="mu">A common goal is 3–6 months of essential expenses. Choose a target that suits your situation.</p>
+      <form id="emergencyForm" class="stack-form">
+        <div><label for="monthlyNeeds">Essential expenses each month (₹)</label><input id="monthlyNeeds" name="needs" type="number" min="0" step="0.01" required></div>
+        <div><label for="fundMonths">Months to cover</label><input id="fundMonths" name="months" type="number" min="1" max="24" step="1" value="6" required></div>
+        <div><label for="fundSaved">Already set aside (₹)</label><input id="fundSaved" name="saved" type="number" min="0" step="0.01" value="0" required></div>
+        <button class="cta" type="submit">Update fund tracker</button>
+      </form>
+      <div id="emergencyResult" aria-live="polite"></div>
+    </article>
+    <article class="card"><h3>Bill &amp; savings reminders</h3>
+      <form id="reminderForm" class="stack-form">
+        <div><label for="reminderName">Reminder</label><input id="reminderName" name="name" maxlength="70" required placeholder="e.g. Electricity bill"></div>
+        <div><label for="reminderDate">Due date</label><input id="reminderDate" name="date" type="date" required></div>
+        <div><label for="reminderAmount">Amount (optional, ₹)</label><input id="reminderAmount" name="amount" type="number" min="0" step="0.01"></div>
+        <div><label for="reminderRepeat">Repeat</label><select id="reminderRepeat" name="repeat"><option value="none">Does not repeat</option><option value="monthly">Monthly</option><option value="yearly">Yearly</option></select></div>
+        <button class="cta" type="submit">Add reminder</button>
+      </form>
+      <button id="enableNotifications" class="ghost notification-button" type="button">Enable browser notifications</button>
+      <p class="mu">Reminders are stored in this browser. Notifications work only when this page is open.</p>
+      <div id="reminderList" aria-live="polite"></div>
+    </article>
+  </div>
+</section>
+
+<section class="wrap" id="schemes">
+  <h2>Government schemes</h2><p class="sub">Compare scheme types, eligibility and lock-in details. Rates are indicative; verify official terms.</p>
+  <div class="tabs" id="filters"></div><div id="schemeCompare" class="card compare-controls"></div>
+  <div class="grid" id="schemeList"></div>
+</section>
+
+<section class="wrap" id="learn">
+  <h2>Learn about money</h2><p class="sub">Short, plain-language guides to help you make informed decisions.</p>
+  <div class="language-choice"><label for="lessonLanguage">Lesson language</label><select id="lessonLanguage"><option value="en">English</option><option value="hi">हिन्दी</option></select></div>
+  <div class="grid" id="lessonList"></div>
+  <h2 class="quiz-title" id="quiz">Check what you learned</h2><p class="sub">Try a few quick questions on money basics.</p>
+  <div class="card tool" id="quizBox" aria-live="polite"></div>
+</section>
+</main>
+
+<footer><div class="wrap"><p><b>FinWise</b> · MIT licensed open-source project. Educational use only, not financial advice. Rates and estimates can change; confirm details with official providers.</p><p>Your entries stay in this browser and are not uploaded to FinWise. Clearing browser data removes them.</p></div></footer>
+<script src="js/web-threads.js"></script>
+<script src="js/app.js"></script>
+</body></html>
