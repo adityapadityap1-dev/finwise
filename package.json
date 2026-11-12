@@ -1,0 +1,9 @@
+{
+  "name": "finwise",
+  "version": "1.0.0",
+  "description": "Open-source Smart Financial Literacy & Budget Planner (no login, no database)",
+  "main": "server.js",
+  "scripts": { "start": "node server.js" },
+  "engines": { "node": ">=16" },
+  "license": "MIT"
+}
